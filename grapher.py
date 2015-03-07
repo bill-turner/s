@@ -7,11 +7,15 @@ import matplotlib.ticker as mticker
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
-%matplotlib inline
+import sys
 
-startdate = datetime.date(2014,10,1)
+ticker = sys.argv[1]
+year = int(sys.argv[2])
+month = int(sys.argv[3])
+day = int(sys.argv[4])
+
+startdate = datetime.date(year, month, day)
 today = enddate = datetime.date.today()
-ticker = 'CYBR'
 
 
 fh = finance.fetch_historical_yahoo(ticker, startdate, enddate)
@@ -204,4 +208,7 @@ class MyLocator(mticker.MaxNLocator):
 ax2.yaxis.set_major_locator(MyLocator(5, prune='both'))
 ax3.yaxis.set_major_locator(MyLocator(5, prune='both'))
 
-plt.show()
+#plt.show()
+fname = '{}.png'.format(ticker)
+fig.savefig(fname,dpi=300)
+
